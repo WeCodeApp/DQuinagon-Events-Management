@@ -11,13 +11,6 @@
       "name": "John Smith",
       "email": "john@example.com",
       "password": "password"
-    },
-    {
-      "firstName": "DARLENE",
-      "lastName": "QUINAGON",
-      "email": "darlenequinagon0204@gmail.com",
-      "password": "123456",
-      "id": 3
     }
   ],
   "events": [
@@ -46,43 +39,6 @@
       ],
       "id": 2,
       "description": "description"
-    },
-    {
-      "name": "ddd",
-      "date": "2025-04-17",
-      "description": "ddd",
-      "created_by": 1,
-      "participants": [],
-      "id": 3
-    },
-    {
-      "name": "dd",
-      "date": "2025-04-18",
-      "description": "ddd",
-      "created_by": 1,
-      "participants": [],
-      "id": 4
-    },
-    {
-      "name": "de",
-      "date": "2025-04-17",
-      "description": "dsaf",
-      "created_by": 1,
-      "participants": [],
-      "id": 5
-    },
-    {
-      "name": "a",
-      "date": "2025-05-01",
-      "description": "aa",
-      "created_by": 1,
-      "participants": [
-        {
-          "id": 1,
-          "joined_date": "2025-04-28"
-        }
-      ],
-      "id": 6
     }
   ]
 }

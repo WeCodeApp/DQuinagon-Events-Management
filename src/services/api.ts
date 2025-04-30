@@ -60,3 +60,14 @@ export async function deleteEvent(id: number) {
 export async function updateEvent(id: number, data: { name: string; date: string; description: string }) {
   return await axios.patch(`${baseURL}/events/${id}`, data)
 }
+export async function registerUser(email: string, password: string) {
+  try {
+    const res = await axios.post(`${baseURL}/users`, {
+      email,
+      password,
+    })
+    return res.data
+  } catch (err) {
+    throw new Error('Registration failed')
+  }
+}

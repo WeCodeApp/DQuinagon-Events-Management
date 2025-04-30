@@ -3,30 +3,45 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useUserStore } from '@/stores/user'
-import { loginUser } from '@/services/api'
+import { loginUser, registerUser } from '@/services/api' // Make sure this exists
 import { useRouter } from 'vue-router'
 
+const success = ref('') // Add this at the top with other refs
 const email = ref('')
 const password = ref('')
 const error = ref('')
+const isRegister = ref(false) // toggle state for register/login
 const userStore = useUserStore()
 const router = useRouter()
 
+
 const emit = defineEmits(['close'])
 
-const handleLogin = async () => {
+const handleSubmit = async () => {
   error.value = ''
+  success.value = ''
   try {
-    const user = await loginUser(email.value, password.value)
-    if (user) {
-      userStore.setUser(user)
-      router.push('/home')
-      emit('close')
+    if (isRegister.value) {
+      const user = await registerUser(email.value, password.value)
+      if (user) {
+        success.value = 'Registered successfully. Please log in.'
+        isRegister.value = false
+        password.value = '' // Clear password for safety
+      } else {
+        error.value = 'Registration failed'
+      }
     } else {
-      error.value = 'Invalid email or password'
+      const user = await loginUser(email.value, password.value)
+      if (user) {
+        userStore.setUser(user)
+        router.push('/home')
+        emit('close')
+      } else {
+        error.value = 'Invalid email or password'
+      }
     }
   } catch (err) {
-    error.value = 'An error occurred. Please try again.'
+    error.value = err.message || 'An error occurred. Please try again.'
   }
 }
 
@@ -51,6 +66,7 @@ onUnmounted(() => {
   document.removeEventListener('keydown', handleKeyDown)
   document.body.style.overflow = ''
 })
+
 </script>
 
 <template>
@@ -84,13 +100,15 @@ onUnmounted(() => {
           />
         </div>
         <p v-if="error" class="error-message">{{ error }}</p>
-        <div class="form-actions">
-          <button
-            @click="handleLogin"
-            class="login-button"
-          >
-            Sign In
-          </button>
+        <button @click="handleSubmit" class="login-button">
+          {{ isRegister ? 'Register' : 'Sign In' }}
+        </button>
+
+        <div class="register-prompt">
+          <span>{{ isRegister ? 'Already have an account?' : "Don't have an account?" }}</span>
+          <a @click.prevent="isRegister = !isRegister" class="register-link">
+            {{ isRegister ? 'Sign In' : 'Register' }}
+          </a>
         </div>
       </div>
     </div>
