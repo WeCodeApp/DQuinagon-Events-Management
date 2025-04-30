@@ -11,6 +11,13 @@
       "name": "John Smith",
       "email": "john@example.com",
       "password": "password"
+    },
+    {
+      "firstName": "DARLENE",
+      "lastName": "QUINAGON",
+      "email": "darlenequinagon0204@gmail.com",
+      "password": "123456",
+      "id": 3
     }
   ],
   "events": [
